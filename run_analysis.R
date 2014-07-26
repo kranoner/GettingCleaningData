@@ -18,15 +18,19 @@ total.acc <- data.frame()
 subjects <- data.frame()
 experiences <- data.frame()
 labels <- data.frame()
+features <- data.frame()
 
 # Read train and test dataset in order to merge them in one big data frame for each measurement
-# Add data in data frame, based on file name pattern 
-# 		body.gyro
-# 		body.acc
-# 		total.acc
-# 		subjects
-# 		experiences
-# 		labels
+# Note: only subject, experiences and labels will be used for this coursera Getting and Cleaning Data. 
+# Add data read from files based on file name pattern.
+# 		body.gyro	from body_gyro_*.txt
+# 		body.acc	from body_acc_*.txt
+# 		total.acc	from total_acc_*.txt
+# 		subjects	from subject_*.txt
+# 		experiences	from X_*.txt
+# 		labels	from y_.txt
+#		features	from features.txt
+
 
 setwd(dataset_root_dir)
 files <- (list.files(".", include.dirs = T, recursive=T))
@@ -61,9 +65,23 @@ lapply(files, function(x){
 		labels <<- rbind (labels, df)
 		print (paste(x, " imported"))
 	}
+	 if (x == "features.txt"){
+		features <<- read.table("features.txt", sep= " ")
+		print (paste(x, " imported"))
+	}
 	else {
 		print (paste(x, " not imported"))
 	}
 })
+
 setwd("..")
+
+# File features.txt indicates the colnames of X_*.txt. 
+# Apply information collected in features.txt to experiences column names
+
+colnames(experiences) <- features[[2]]
+
+
+
+
 
