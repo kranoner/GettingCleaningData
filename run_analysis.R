@@ -7,18 +7,10 @@
 # Extracts only the measurements on the mean and standard deviation for each measurement. 
 # Uses descriptive activity names to name the activities in the data set
 # Appropriately labels the data set with descriptive variable names. 
-#Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
-
-
-# Read files
+# Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
 
 dataset_root_dir <- "UCI\ HAR\ Dataset"
-folders <- c("test","train")
-
-toto <- c("body_acc", "body_gyro", "total_acc")
-
-inertial_signals_folder <- "Inertial Signals"
 
 body.gyro <- data.frame()
 body.acc <- data.frame()
@@ -27,7 +19,7 @@ subjects <- data.frame()
 experiences <- data.frame()
 labels <- data.frame()
 
-# Read train and test dataset
+# Read train and test dataset in order to merge them in one big data frame for each measurement
 # Add data in data frame, based on file name pattern 
 # 		body.gyro
 # 		body.acc
@@ -74,3 +66,4 @@ lapply(files, function(x){
 	}
 })
 setwd("..")
+
