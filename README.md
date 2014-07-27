@@ -19,8 +19,8 @@ R Script
 To run the script please you must have the R sofware installed on your computer.
 Script is <code>run_analysis.R</code>
 The script uses data available from internet [getdata_projectfiles_UCI HAR Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
-Please unzip this archive under the same folder script. The dataset folder name must be named <code>UCI HAR Dataset/<code>
+Please unzip this archive under the same folder as the script. The dataset folder must be named <code>UCI HAR Dataset/<code>
 
 Under R environment type:
-<code> source("run_analysis.R")</code>
-the script runs and write the output on the same folder where the R script was executed.
+<code>source("run_analysis.R")</code>
+The script runs and writes the output <code>activityMeasure.csv</code> on the same folder where the R script was executed.
