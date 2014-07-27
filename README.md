@@ -12,3 +12,15 @@ Course page: [link](https://class.coursera.org/getdata-005)
 Project page: [link](https://class.coursera.org/getdata-005/human_grading)
 
 More details in the [CodeBook.md](https://github.com/kranoner/GettingCleaningData/blob/master/CodeBook.md) file
+
+R Script 
+--------
+
+To run the script please you must have the R sofware installed on your computer.
+Script is <code>run_analysis.R</code>
+The script uses data available from internet [getdata_projectfiles_UCI HAR Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+Please unzip this archive under the same folder script. The dataset folder name must be named <code>UCI HAR Dataset/<code>
+
+Under R environment type:
+<code> source("run_analysis.R")</code>
+the script runs and write the output on the same folder where the R script was executed.
