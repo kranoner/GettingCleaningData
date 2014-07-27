@@ -100,11 +100,13 @@ colnames(measurements)[length(measurements)] <- "subjectID"
 colnamesStdMean <- vector()
 colnamesStdMean[1] <- "subjectID"
 colnamesStdMean[2] <- "activity"
+# replicate the colnamesStdMean to be used as a future vector of Characters without bracket and dash
 colnamesStdMeanCleaned <- rep(colnamesStdMean)
 
 # Note: I could have use the melt function
 lapply (colnames(measurements), function (x){
 	if (grepl("std", x) | grepl("mean", x)){
+		# remove dash and brackets
 		y <- gsub("-", ".", x)
 		y <- gsub("\\(|\\)", "", y)
 		colnamesStdMean[length(colnamesStdMean) + 1] <<- x
@@ -115,14 +117,9 @@ lapply (colnames(measurements), function (x){
 measurementsStdMean <- measurements[colnamesStdMean]
 colnames (measurementsStdMean) <- colnamesStdMeanCleaned
 
-# lapply (colnames(measurementsStdMean), function (x){
-# 	if (grepl("std", x) | grepl("mean", x)){
-# 		
-# 	}
-# })
-
-# really! 
 measureActivityAggBySubjectActivity <- aggregate (measurementsStdMean, by=list(measurementsStdMean$subjectID, measurementsStdMean$activity), FUN=mean)
+
+# Write tidy reshaped data in the proper file (if not already exists) 
 if(!file.exists("activityMeasure.csv")){
 	print("file activityMeasure.csv written")
 	write.table(measurementsStdMean,  file="activityMeasure.csv", sep = ",", append=F)
