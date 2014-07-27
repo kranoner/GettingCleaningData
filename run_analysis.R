@@ -19,6 +19,7 @@ subjects <- data.frame()
 experiences <- data.frame()
 labels <- data.frame()
 features <- data.frame()
+activity.labels <- data.frame()
 
 # Read train and test dataset in order to merge them in one big data frame for each measurement
 # Note: only subject, experiences and labels will be used for this coursera Getting and Cleaning Data. 
@@ -28,9 +29,9 @@ features <- data.frame()
 # 		total.acc	from total_acc_*.txt
 # 		subjects	from subject_*.txt
 # 		experiences	from X_*.txt
-# 		labels	from y_.txt
+# 		labels	from y_*.txt
 #		features	from features.txt
-
+#		activity.labels from activity_labels.txt
 
 setwd(dataset_root_dir)
 files <- (list.files(".", include.dirs = T, recursive=T))
@@ -60,13 +61,17 @@ lapply(files, function(x){
 		experiences <<- rbind (experiences, df)
 		print (paste(x, " imported"))
 	}
-	else if (grepl("y_", x) &  !grepl("activity_labels.txt", x)){
+	else if (grepl("y_test.txt",x) | grepl("y_train.txt",x )){
 		df <- read.table(file=x)
 		labels <<- rbind (labels, df)
 		print (paste(x, " imported"))
 	}
-	 if (x == "features.txt"){
-		features <<- read.table("features.txt", sep= " ")
+	else if (x == "features.txt"){
+		features <<- read.table(x, sep= " ")
+		print (paste(x, " imported"))
+	}
+	else if (x == "activity_labels.txt"){
+		activity.labels <<- read.table(x, sep= " ")
 		print (paste(x, " imported"))
 	}
 	else {
@@ -80,6 +85,12 @@ setwd("..")
 # Apply information collected in features.txt to experiences column names
 
 colnames(experiences) <- features[[2]]
+
+# Translate id from the activity.labels in the labels data frame
+# Append labels to experiences
+measurements <- cbind(experiences, factor(labels$V1, labels = activity.labels$V2))
+# change column name of the new colnum to "activity"
+colnames(measurements)[length(measurements)] <- "activity"
 
 
 
