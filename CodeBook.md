@@ -33,6 +33,8 @@ We bind line by line the list of subject measurement to measurement values. Then
 Once merged the output dataset contains 81 columns. More details in the next section.
 
 All the following measurements are data aggregated fom observations by Subject and activity. 
+Finally the output dataset is written in the activityMeasure.csv file.
+
 
 Data dictionary
 ---------------
