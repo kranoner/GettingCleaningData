@@ -9,7 +9,6 @@
 # Appropriately labels the data set with descriptive variable names. 
 # Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
-
 dataset_root_dir <- "UCI\ HAR\ Dataset"
 
 body.gyro <- data.frame()
@@ -88,7 +87,7 @@ colnames(experiences) <- features[[2]]
 
 # Translate id from the activity.labels in the labels data frame
 # Append labels to experiences
-measurements <- cbind(experiences, factor(labels$V1, labels = activity.labels$V2))
+measurements <<- cbind(experiences, factor(labels$V1, labels = activity.labels$V2))
 # change column name of the new colnum to "activity"
 colnames(measurements)[length(measurements)] <- "activity"
 # Append subjectis Id to measurements
@@ -101,11 +100,30 @@ colnames(measurements)[length(measurements)] <- "subjectID"
 colnamesStdMean <- vector()
 colnamesStdMean[1] <- "subjectID"
 colnamesStdMean[2] <- "activity"
+colnamesStdMeanCleaned <- rep(colnamesStdMean)
 
+# Note: I could have use the melt function
 lapply (colnames(measurements), function (x){
 	if (grepl("std", x) | grepl("mean", x)){
+		y <- gsub("-", ".", x)
+		y <- gsub("\\(|\\)", "", y)
 		colnamesStdMean[length(colnamesStdMean) + 1] <<- x
+		colnamesStdMeanCleaned [length(colnamesStdMeanCleaned) + 1] <<- y
 	}
 })
 
 measurementsStdMean <- measurements[colnamesStdMean]
+colnames (measurementsStdMean) <- colnamesStdMeanCleaned
+
+# lapply (colnames(measurementsStdMean), function (x){
+# 	if (grepl("std", x) | grepl("mean", x)){
+# 		
+# 	}
+# })
+
+# really! 
+measureActivityAggBySubjectActivity <- aggregate (measurementsStdMean, by=list(measurementsStdMean$subjectID, measurementsStdMean$activity), FUN=mean)
+if(!file.exists("activityMeasure.csv")){
+	print("file activityMeasure.csv written")
+	write.table(measurementsStdMean,  file="activityMeasure.csv", sep = ",", append=F)
+}
