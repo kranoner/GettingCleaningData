@@ -91,8 +91,21 @@ colnames(experiences) <- features[[2]]
 measurements <- cbind(experiences, factor(labels$V1, labels = activity.labels$V2))
 # change column name of the new colnum to "activity"
 colnames(measurements)[length(measurements)] <- "activity"
+# Append subjectis Id to measurements
+measurements <- cbind(measurements, subjects$V1)
+# change column name of the new colnum to "subjectID"
+colnames(measurements)[length(measurements)] <- "subjectID"
 
 
+# Extract colnames with the string "mean" and "std" (standard deviation)
+colnamesStdMean <- vector()
+colnamesStdMean[1] <- "subjectID"
+colnamesStdMean[2] <- "activity"
 
+lapply (colnames(measurements), function (x){
+	if (grepl("std", x) | grepl("mean", x)){
+		colnamesStdMean[length(colnamesStdMean) + 1] <<- x
+	}
+})
 
-
+measurementsStdMean <- measurements[colnamesStdMean]
