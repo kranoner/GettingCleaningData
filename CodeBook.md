@@ -7,7 +7,9 @@ Coursera project - Jonathan Salfati - 27 Jul 2014
 Project description
 -------------------
 Purpose of this project is to apply course material learned during the Getting and Cleaning Data course.
+
 Course page: [link](https://class.coursera.org/getdata-005)
+
 Project page: [link](https://class.coursera.org/getdata-005/human_grading)
 
 Data set used in this project - Human Activity Recognition Using Smartphones - have been collected from experiment *Human Activity Recognition database built from the recordings of 30 subjects performing activities of daily living (ADL) while carrying a waist-mounted smartphone with embedded inertial sensors.*
